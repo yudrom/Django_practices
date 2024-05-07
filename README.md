@@ -54,30 +54,32 @@ Out[16]: False
 In [17]: models.Car.objects.create(name='Porsche', price=9100000)
 Out[17]: <Car: Porsche>
 
-In [18]: 
-Out[18]:
+In [18]: models.Car.objects.update(color='Чёрный')
+Out[18]: 5
 
-In [19]: 
-Out[19]:
+In [19]: models.Car.objects.filter(id__lt=3).update(color='Белый')
+Out[19]: 2
 
-In [20]: 
-Out[20]:
+In [20]: models.Car.objects.filter(name__exact='Nissan').delete()
+Out[20]: (1, {'rental.Car': 1})
 
-In [21]: 
-Out[21]:
+In [21]: models.Car.objects.dates('release_date', 'day')
+Out[21]: <QuerySet [datetime.date(1999, 5, 1), datetime.date(2022, 3, 16), datetime.date(2024, 5, 7)]>
 
-In [22]: 
-Out[22]:
+In [22]: models.Car.objects.dates('release_date', 'day').reverse()
+Out[22]: <QuerySet [datetime.date(2024, 5, 7), datetime.date(2022, 3, 16), datetime.date(1999, 5, 1)]>
 
-In [23]:
-Out[23]:
+In [23]: models.RentalAgency.objects.values('name', 'services')
+Out[23]: <QuerySet [{'name': 'FastRentLowPrice', 'services': 'daily_rental'}, {'name': '5MinutesToGo', 'ser
+vices': 'daily_rental'}, {'name': 'DeservedOne', 'services': 'hourly_rental'}]>
 
-In [24]:
-Out[24]:
+In [24]: models.RentalAgency.objects.values_list('name', 'address')
+Out[24]: <QuerySet [('FastRentLowPrice', 'ул. Пушкина 39'), ('5MinutesToGo', 'ул. Достоевского 37'), ('Dese
+rvedOne', 'ул. Карла Маркса 12')]>
 
-In [25]:
-Out[25]:
-
+In [25]: models.Car.objects.values_list('price', flat=True)
+Out[25]: <QuerySet [Decimal('4550000.00'), Decimal('3185000.00'), Decimal('11850000.00'), Decimal('9100000.
+00')]>
 
 
 
