@@ -1,7 +1,8 @@
 from django.urls import path
-from news import views
+from .views import *
 
 urlpatterns = [
-    path('', views.index)
+    path('', index, name='home'),
+    path('category/<int:category_id>', get_category, name='category')
 ]
 
