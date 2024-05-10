@@ -23,3 +23,7 @@ def get_category(request, category_id):
         'category': category,
     }
     return render(request, template_name='news/category.html', context=context)
+
+
+def get_absolute_url(request):
+    pass
