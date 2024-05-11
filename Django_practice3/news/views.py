@@ -21,7 +21,7 @@ def get_category(request, category_id):
         'news': news,
         'categories': categories,
         'category': category,
-        'title': category
+        'title': category,
     }
     return render(request, template_name='news/category.html', context=context)
 
