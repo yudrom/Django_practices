@@ -8,4 +8,3 @@ urlpatterns = [
     path('redirect/', Redirect.as_view(), name='redirect'),
     path('form_example/', SimpleForm.as_view(), name='form_example')
 ]
-
