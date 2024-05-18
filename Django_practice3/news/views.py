@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.utils.timezone import now
 from . import models, forms
-from django.views.generic import ListView, RedirectView, FormView, DetailView
+from django.views.generic import ListView, RedirectView, FormView
 
 
 def index(request):
