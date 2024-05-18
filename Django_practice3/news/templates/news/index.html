@@ -16,6 +16,7 @@
     <div class="card mt-3 mb-3">
         <div class="card-header">
             Категория: <a href="{% url 'category' item.category.pk %}">{{ item.category.title }}</a>
+            <p><i>{{additional_info}}</i></p>
         </div>
         <div class="card-body">
             <div class="media">
