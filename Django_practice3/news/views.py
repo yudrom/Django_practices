@@ -38,6 +38,7 @@ class ClassBasedIndex(ListView):  # Классовое представлени�
     def get_queryset(self):
         return self.get_filters().qs
 
+
 def get_category(request, category_id):
     news = models.News.objects.filter(category=category_id)
     categories = models.Category.objects.all()
@@ -88,6 +89,7 @@ class NewsViewSet(ModelViewSet):
     queryset = News.objects.all()
     serializer_class = serializers.NewsSerializer
     filterset_class = filters.NewsFilter
+
 
 class NewsSumView(APIView):
     def get(self, request):
