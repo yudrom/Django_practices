@@ -1,7 +1,11 @@
 from django.shortcuts import render
 from django.utils.timezone import now
-from . import models, forms
+from rest_framework.response import Response
+from . import models, forms, serializers, filters
 from django.views.generic import ListView, RedirectView, FormView
+from rest_framework.views import APIView
+from rest_framework.viewsets import ModelViewSet
+from .models import News
 
 
 def index(request):
@@ -25,8 +29,14 @@ class ClassBasedIndex(ListView):  # Классовое представлени�
         context['categories'] = models.Category.objects.all()
         context['title'] = 'Список новостей'
         context['additional_info'] = now()
+        context['filter'] = self.get_filters()
         return context
 
+    def get_filters(self):
+        return filters.NewsFilter(self.request.GET)
+
+    def get_queryset(self):
+        return self.get_filters().qs
 
 def get_category(request, category_id):
     news = models.News.objects.filter(category=category_id)
@@ -72,3 +82,14 @@ class SimpleForm(FormView):
     def form_valid(self, form):
         print(form.cleaned_data)
         return super().form_valid(form)
+
+
+class NewsViewSet(ModelViewSet):
+    queryset = News.objects.all()
+    serializer_class = serializers.NewsSerializer
+    filterset_class = filters.NewsFilter
+
+class NewsSumView(APIView):
+    def get(self, request):
+        count_of_news = models.News.objects.count()
+        return Response({'news_count': count_of_news})
